@@ -37,15 +37,15 @@ def getProjSrc():
 	contents = []
 	for link in links:
 		# get whatever on project page
-		p = page_session.get(link).text
-		contents.append(p)
+		p = page_session.get(link)
+		text = p.html.find("div.section:nth-child(2)", first=True).html
+		contents.append(text)
 
 	print('finished')
 	return contents
 
 # projects sourced from MadeWithUnity
-# require no need for extra parsing
-# currently store parsed html
+# currently store some useful content
 project_src = getProjSrc()
 
 def getProjList():
