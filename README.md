@@ -38,6 +38,7 @@ After initiating server, we request ```localhost:5000/``` on two different brosw
 Direct observation gained from refreshing the page.
 
 ## Installation
+From terminal,
 ```bash
 git clone https://github.com/Alicewillbe/UnityShowcaseApp temp_XZ
 cd temp_XZ
@@ -46,5 +47,7 @@ pip install requests
 pip install requests-html
 
 python app.py
+
 ```
 Wait server to finish set up, and try connecting to ```localhost:5000/```
+When finished testing, end the process with ```Control-C```
