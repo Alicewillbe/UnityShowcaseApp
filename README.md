@@ -32,13 +32,13 @@ Solution: (invertion from relative path to absolute path is not supported by cur
 Since the web server is not deployed, we can only validate it in local environment.
 
 ### user authentication
-After initiating server, we request '''localhost:5000/''' on two different broswers, e.g. firefox and chrome, and should observe different projects every time refreshing the page.
+After initiating server, we request ```localhost:5000/``` on two different broswers, e.g. firefox and chrome, and should observe different projects every time refreshing the page.
 
 ### randomly picked projects
 Direct observation gained from refreshing the page.
 
 ## Installation
-'''bash
+```bash
 git clone https://github.com/Alicewillbe/UnityShowcaseApp temp_XZ
 cd temp_XZ
 pip install flask
@@ -46,5 +46,5 @@ pip install requests
 pip install requests-html
 
 python app.py
-'''
-Wait server to finish set up, and try connecting to '''localhost:5000/'''
+```
+Wait server to finish set up, and try connecting to ```localhost:5000/```
