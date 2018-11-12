@@ -1,28 +1,51 @@
-from flask import Flask, render_template, session, request, redirect
+from flask import Flask, render_template, session, request
 from requests_html import HTMLSession
 from random import shuffle
-import os
+import os, atexit
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 page_session = HTMLSession()
+
+
+# close page_session when server is closed
+def all_done():
+	page_session.close()
+	print('Server closed!')
+
+atexit.register(all_done)
 
 def getProjSrc():
 	""" 
 	get all projects from MadeWithUnity
 
 	Returns:
-		the list of absolute links for all projects
+		the list of contents from all projects
 
 	"""
+	print('Sourcing projects available on MadeWithUnity...', end='')
+
+	# get links for projects
 	r = page_session.get("https://unity.com/madewith")
 	selector = ('#main > div > div > div'
 				'> div.views-element-container'
 				'> div > div > div > div')
 	elements = r.html.find(selector, first=True).find('main')
-	return [e.absolute_links.pop() for e in elements]
+	links = [e.absolute_links.pop() for e in elements]
 
-# crawl projects from MadeWithUnity
+	# get contents for projects
+	contents = []
+	for link in links:
+		# get whatever on project page
+		p = page_session.get(link).text
+		contents.append(p)
+
+	print('finished')
+	return contents
+
+# projects sourced from MadeWithUnity
+# require no need for extra parsing
+# currently store parsed html
 project_src = getProjSrc()
 
 def getProjList():
@@ -56,12 +79,11 @@ def home():
 		raise Excpetion('No project found')
 
 	# pop the next project and render the page
-	nextLink = session[clientAddr].pop(0)
+	nextElement = session[clientAddr].pop(0)
 	# otherwise no longer update the session
 	session.modified = True
 
-	# handle elements from link
-	return nextLink
+	return nextElement
 
 
 if __name__ == "__main__":

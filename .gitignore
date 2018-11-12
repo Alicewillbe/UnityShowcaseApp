@@ -9,3 +9,4 @@ ServerExerciseOnPython/.DS_Store
 .DS_Store
 source_finder.py
 spider.py
+templates/mysite.html
